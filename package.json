@@ -1,0 +1,21 @@
+{
+  "name": "@kmerhosting/lxc-hosting-self-hosted",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A local-first LXC hosting dashboard for a single Ubuntu server.",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node server/index.mjs",
+    "dev": "node --watch server/index.mjs",
+    "check": "node --check server/index.mjs && node --check server/cli.mjs",
+    "reset-password": "node server/cli.mjs reset-password"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "better-sqlite3": "^12.6.2",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

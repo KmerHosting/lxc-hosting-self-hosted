@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+ENV_FILE=/etc/lxc-hosting-self-hosted/lxc-hosting.env
+[[ -f "$ENV_FILE" ]] || { echo "LXC Hosting Self-Hosted is not installed." >&2; exit 1; }
+set -a; . "$ENV_FILE"; set +a
+echo "Service:"; systemctl is-active lxc-hosting-self-hosted.service || true
+echo "Health:"; curl -fsS --max-time 5 "http://127.0.0.1:${PORT}/api/health" || true; echo
+echo "Runtime:"; command -v incus || command -v lxc || true
+if [[ -f "$LXC_SELF_HOSTED_SETUP_TOKEN_FILE" ]]; then echo "Setup token: $(<"$LXC_SELF_HOSTED_SETUP_TOKEN_FILE")"; else echo "Setup: complete"; fi

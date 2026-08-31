@@ -1,0 +1,21 @@
+[Unit]
+Description=LXC Hosting Self-Hosted
+After=network-online.target lxd.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+EnvironmentFile=/etc/lxc-hosting-self-hosted/lxc-hosting.env
+WorkingDirectory=/opt/lxc-hosting-self-hosted/current
+ExecStart=/usr/bin/node server/index.mjs
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ReadWritePaths=/var/lib/lxc-hosting-self-hosted /etc/lxc-hosting-self-hosted
+
+[Install]
+WantedBy=multi-user.target
